@@ -25,9 +25,18 @@ const estilos = StyleSheet.create({
 const App = () => {
   return(
     <View style={ estilos.container }>
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <View style={{ flex: 2, justifyContent: 'center', alignItems: 'center' }}>
         <Image source={require('/assets/logoUnilasalle.png')} 
         style={{ width: 150, height: 47, marginTop: 30 }} />
+      </View>
+
+      <View style={ estilos.subcontainer }>
+        <View style={[estilos.coluna, {backgroundColor: 'lightblue'}]}>
+          <Image source={require('/assets/iconeSite.png')} style={estilos.icone} />
+        </View>
+        <View style={[estilos.coluna, {backgroundColor: 'yellow'}]}>
+          <Image source={require('/assets/iconeMaps.png')} style={estilos.icone} />
+        </View>
       </View>
 
       <View style={ estilos.subcontainer }>
@@ -50,5 +59,6 @@ const App = () => {
     </View>
   )
 }
+
 
 export default App
