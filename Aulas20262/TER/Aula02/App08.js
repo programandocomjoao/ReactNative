@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, Text, View, FlatList } from 'react-native'
+import { StyleSheet, Text, View, SectionList } from 'react-native'
 
 const Estilos = StyleSheet.create({
   container: {
@@ -34,6 +34,13 @@ const Estilos = StyleSheet.create({
   item: {
     padding: 10,
     fontSize: 18
+  },
+  secao: {
+    padding: 10,
+    fontSize: 20,
+    fontWeight: 'bold',
+    backgroundColor: '#0080c0',
+    color: 'white'
   }
 })
 
@@ -48,24 +55,20 @@ const Cabecalho = () => {
 const Conteudo = () => {
   return(
     <View style={ Estilos.conteudo }>
-      <FlatList
-        data={[
-          { game: 'Seaquest' },
-          { game: 'Enduro' },
-          { game: 'River-Raid' },
-          { game: 'Super Mario Bros 3' },
-          { game: 'Super Mario Bros' },
-          { game: 'Ninja Gaiden' },
-          { game: 'Sonic The Hedgehog' },
-          { game: 'Alex Kid in The Miracle World' },
-          { game: 'Double Dragon' },
-          { game: 'Super Mario World' },
-          { game: 'Donkey Kong' },
-          { game: 'Street Fighter II' }
+      <SectionList
+        sections={[
+          { title: 'Atari 2600', data: ['Seaquest', 'Enduro', 'River-Raid', 'Pitfall']},
+          { title: 'Nintendo (NES)', data: ['Super Mario Bros 3', 'Super Mario Bros', 'Ninja Gaiden'] },
+          { title: 'Master System', data: ['Sonic The Hedgehog', 'Alex Kid in The Miracle World', 'Double Dragon'] },
+          { title: 'Super Nintendo (SNES)', data: ['Super Mario World', 'Donkey Kong Country', 'Street Fighter II', 'Top Gear'] }
         ]}
 
-        renderItem={
-          ({item}) => <Text style={ Estilos.item }>{'\u2022'} { item.game }</Text>
+      renderSectionHeader={
+          ({section}) => <Text style={ Estilos.secao }>{ section.title }</Text>
+        }
+
+      renderItem={
+          ({item}) => <Text style={ Estilos.item }>{'\u2022'} { item }</Text>
         }
       />
     </View>
