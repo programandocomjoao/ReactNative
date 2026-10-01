@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, Text, View, FlatList } from 'react-native'
+import { StyleSheet, Text, View, SectionList } from 'react-native'
 
 const Estilos = StyleSheet.create({
   principal: {
@@ -34,6 +34,13 @@ const Estilos = StyleSheet.create({
   item: {
     fontSize: 18,
     padding: 10
+  },
+  secao: {
+    padding: 10,
+    fontSize: 20,
+    fontWeight: 'bold',
+    backgroundColor: '#0080c0',
+    color: 'white'
   }
 })
 
@@ -48,27 +55,21 @@ const Cabecalho = () => {
 const Conteudo = () => {
   return(
     <View style={ Estilos.conteudo }>
-      <FlatList
-        data = {[
-          { game: 'Seaquest' },
-          { game: 'Enduro' },
-          { game: 'River-Raid' },
-          { game: 'Moonpatrol' },
-          { game: 'Super Mario Bros' },
-          { game: 'Ninja Gaiden' },
-          { game: 'Tartarugas Ninjas II' },
-          { game: 'Sonic The Hedgehog' },
-          { game: 'Alex Kid in The Miracle World' },
-          { game: 'Double Dragon' },
-          { game: 'Altered Beast' },
-          { game: 'Castle of Ilusion' },
-          { game: 'Super Mario World' },
-          { game: 'Donkey Kong Country' },
-          { game: 'Top Gear' }
+      <SectionList
+        sections = {[
+          { title: 'Atari 2600', data: ['Seaquest', 'Enduro', 'River-Raid', 'Moonpatrol'] },
+          { title: 'Nintendo (NES)', data: ['Super Mario Bros', 'Ninja Gaiden', 'Tartarugas Ninjas II'] },
+          { title: 'Master System', data: ['Sonic The Hedgehog', 'Alex Kid in The Miracle World', 'Double Dragon'] },
+          { title: 'Mega Drive', data: ['Altered Beast', 'Castle of Ilusion'] },
+          { title: 'Super Nintendo (SNES)', data: ['Super Mario World', 'Donkey Kong Country', 'Top Gear'] }
         ]}
 
+        renderSectionHeader = {
+          ({section}) => <Text style={ Estilos.secao }>{ section.title }</Text>
+        }
+
         renderItem={
-          ({item}) => <Text style={ Estilos.item }>{ '\u2022' } { item.game }</Text>
+          ({item}) => <Text style={ Estilos.item }>{ '\u2022' } { item }</Text>
         }
       />
     </View>
