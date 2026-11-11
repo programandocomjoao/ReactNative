@@ -10,6 +10,24 @@ const App = () => {
     { id: 4, descricao: 'Atualizar currículo' }
   ])
 
+  const [visivel, setVisivel] = useState(false)
+  const [tarefa, setTarefa] = useState(null)
+
+  confirmarExclusao = function(t) {
+    setTarefa(t)
+    setVisivel(true)
+  }
+
+  excluirTarefa = function() {
+    const novaLista = tarefas.filter(
+      item => item.id !== tarefa.id
+    )
+
+    setTarefas(novaLista)
+    setVisivel(false)
+    setTarefa(null)
+  }
+
   return(
     <View style={ Estilos.container }>
       <Text style={ Estilos.titulo }>
@@ -21,18 +39,62 @@ const App = () => {
       </Text>
 
       {tarefas.map(
-        (tarefa) => (
-          <View style={ Estilos.item } key={ tarefa.id }>
+        (item) => (
+          <View style={ Estilos.item } key={ item.id }>
             <Text style={ Estilos.texto }>
-              { tarefa.descricao }
+              { item.descricao }
             </Text>
 
-            <TouchableOpacity style={ Estilos.botaoExcluir }>
+            <TouchableOpacity
+              style={ Estilos.botaoExcluir }
+              onPress={ () => confirmarExclusao(item) }
+            >
               <Text style={ Estilos.textoBotao }>EXCLUIR</Text>
             </TouchableOpacity>
           </View>
         )
       )}
+
+      <Modal
+        visible={ visivel }
+        transparent={ true }
+        animationType='fade'
+        onRequestClose={ () => setVisivel(false) }
+      >
+        <View style={ Estilos.fundoModal }>
+          <View style={ Estilos.quadroModal }>
+            <Text style={ Estilos.tituloModal }>
+              Confirmar Exclusão
+            </Text>
+
+            <Text style={ Estilos.textoModal }>
+              Deseja realmente excluir esta tarefa?
+            </Text>
+
+            <Text style={ Estilos.tarefaModal }>
+              { tarefa?.descricao }
+            </Text>
+
+            <TouchableOpacity
+              style={ Estilos.botaoConfirmar }
+              onPress={ excluirTarefa }
+            >
+              <Text style={ Estilos.textoBotao }>
+                SIM, EXCLUIR
+              </Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              style={ Estilos.botaoCancelar }
+              onPress={ () => setVisivel(false) }
+            >
+              <Text style={ Estilos.textoBotao }>
+                NÃO, CANCELAR
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
     </View>
   )
 }
